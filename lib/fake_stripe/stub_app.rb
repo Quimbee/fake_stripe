@@ -2,7 +2,10 @@ require 'sinatra/base'
 
 module FakeStripe
   class StubApp < Sinatra::Base
-
+    before do
+      puts "WARNING: FakeStripe stubbing: #{request.path_info} with params: #{request.params}"
+    end
+    
     # Charges
     post '/v1/charges' do
       if params['amount'] && params['amount'].to_i <= 0
